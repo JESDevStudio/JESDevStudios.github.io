@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JES Dev Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #070b14;
+    --bg-panel: #0d1420;
+    --line: #1c2636;
+    --text: #e8edf5;
+    --text-dim: #8792a3;
+    --blue: #4da3ff;
+    --amber: #ffb238;
+    --purple: #8b6bff;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection{ background: var(--blue); color: #04060a; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 5vw;
+    background: rgba(7,11,20,0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand{
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.08em;
+  }
+  .brand span{ color: var(--blue); }
+  .nav-links{ display: flex; gap: 28px; font-size: 0.9rem; color: var(--text-dim); }
+  .nav-links a:hover{ color: var(--text); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    height: 100vh;
+    min-height: 560px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero img{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+  .hero::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7,11,20,0.15) 0%, rgba(7,11,20,0.55) 55%, var(--bg) 100%);
+  }
+  .hero-content{
+    position: relative;
+    z-index: 2;
+    padding: 0 5vw 64px;
+    max-width: 720px;
+  }
+  .eyebrow{
+    color: var(--amber);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.02;
+    margin-bottom: 18px;
+  }
+  .hero p{
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    max-width: 520px;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding: 90px 5vw; }
+  .section-head{ margin-bottom: 44px; max-width: 640px; }
+  .section-head .eyebrow{ color: var(--blue); }
+  .section-head h2{ font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; margin-bottom: 10px; }
+  .section-head p{ color: var(--text-dim); font-size: 0.98rem; }
+
+  /* ---------- GAMES GRID ---------- */
+  .games-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .game-card{
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 26px;
+    position: relative;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .game-card:hover{
+    transform: translateY(-4px);
+    border-color: var(--blue);
+  }
+  .game-status{
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .status-live{ background: rgba(77,163,255,0.14); color: var(--blue); }
+  .status-dev{ background: rgba(255,178,56,0.14); color: var(--amber); }
+
+  .game-card h3{ font-size: 1.4rem; font-weight: 600; margin-bottom: 10px; }
+  .game-card .tagline{ color: var(--blue); font-size: 0.85rem; font-weight: 500; margin-bottom: 12px; }
+  .game-card .desc{ color: var(--text-dim); font-size: 0.92rem; margin-bottom: 22px; min-height: 44px; }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .btn-primary{
+    background: var(--blue);
+    color: #04060a;
+    border-color: var(--blue);
+  }
+  .btn-primary:hover{ background: #6bb4ff; }
+  .btn-ghost{ color: var(--text-dim); }
+  .btn-ghost:hover{ color: var(--text); border-color: var(--text-dim); }
+  .btn[aria-disabled="true"]{
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  /* ---------- ABOUT / STUDIO STRIP ---------- */
+  .studio-strip{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 50px 5vw;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-panel);
+  }
+  .pillar{ flex: 1; min-width: 160px; }
+  .pillar .num{ color: var(--purple); font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .pillar p{ color: var(--text-dim); font-size: 0.92rem; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding: 60px 5vw 40px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  .footer-brand h3{ font-size: 1.3rem; margin-bottom: 8px; }
+  .footer-brand p{ color: var(--text-dim); font-size: 0.9rem; max-width: 320px; }
+  .footer-links{ display: flex; gap: 50px; }
+  .footer-col h4{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+  .footer-col a{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+    margin-bottom: 10px;
+    color: var(--text-dim);
+  }
+  .footer-col a:hover{ color: var(--blue); }
+  .footer-bottom{
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  svg.icon{ width: 16px; height: 16px; flex-shrink: 0; }
+
+  @media (max-width: 640px){
+    .nav-links{ display: none; }
+    section{ padding: 60px 6vw; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">JES<span>DEV</span>STUDIOS</div>
+  <div class="nav-links">
+    <a href="#games">Games</a>
+    <a href="#studio">Studio</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <img src="banner-web.jpg" alt="JES Dev Studios — Inverse Sequence, Fetch Frenzy">
+  <div class="hero-content">
+    <div class="eyebrow">Indie Game Studio</div>
+    <h1>Create. Play. Inspire.</h1>
+    <p>A solo-built studio making sharp, replayable mobile games — currently shipping Inverse Sequence, with more on the way.</p>
+  </div>
+</header>
+
+<section id="games">
+  <div class="section-head">
+    <div class="eyebrow">Games</div>
+    <h2>What we've made</h2>
+    <p>Every title built from scratch in Unity, top to bottom, by one developer.</p>
+  </div>
+  <div class="games-grid" id="games-grid"></div>
+</section>
+
+<div class="studio-strip" id="studio">
+  <div class="pillar"><div class="num">01</div><p>Passion — every mechanic gets iterated until it feels right, not just functional.</p></div>
+  <div class="pillar"><div class="num">02</div><p>Discipline — shipped alongside a full-time job, built in the hours that are actually available.</p></div>
+  <div class="pillar"><div class="num">03</div><p>Growth — each project levels up the last: better architecture, better polish, better reach.</p></div>
+</div>
+
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>JES Dev Studios</h3>
+      <p>Independent mobile game development. Turning small ideas into games people actually want to keep playing.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:jesdevstudios@gmail.com">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>
+          jesdevstudios@gmail.com
+        </a>
+        <a href="https://www.tiktok.com/@toffeeland02" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.1 1.8 3.7 4 4v2.6c-1.5 0-2.9-.4-4-1.2v6.4a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.7a2.9 2.9 0 1 0 2 2.8V3h2.7z"/></svg>
+          @ToffeeLand02
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; <span id="year"></span> JES Dev Studios</span>
+    <span>Built solo, one sequence at a time.</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Add new games here — one object per game, nothing else to touch ----
+  const games = [
+    {
+      name: "Inverse Sequence",
+      tagline: "Reverse. Remember. Master.",
+      desc: "A memory sequence game across Classic, Blitz, and Chaos modes. Nearly impossible to master.",
+      status: "live",
+      playStoreUrl: "https://play.google.com/store/apps/details?id=YOUR_PACKAGE_ID_HERE"
+    },
+    {
+      name: "Fetch Frenzy",
+      tagline: "Catch. Dash. Repeat.",
+      desc: "A 3D frisbee-catching game starring a very good dog. In active development.",
+      status: "dev",
+      playStoreUrl: null
+    }
+    // Add the next game here, e.g.:
+    // { name: "New Game", tagline: "...", desc: "...", status: "dev", playStoreUrl: null }
+  ];
+
+  const grid = document.getElementById('games-grid');
+  grid.innerHTML = games.map(g => `
+    <div class="game-card">
+      <span class="game-status ${g.status === 'live' ? 'status-live' : 'status-dev'}">
+        ${g.status === 'live' ? 'Available now' : 'In development'}
+      </span>
+      <h3>${g.name}</h3>
+      <div class="tagline">${g.tagline}</div>
+      <div class="desc">${g.desc}</div>
+      ${g.playStoreUrl
+        ? `<a class="btn btn-primary" href="${g.playStoreUrl}" target="_blank" rel="noopener">Get it on Google Play</a>`
+        : `<span class="btn btn-ghost" aria-disabled="true">Coming soon</span>`
+      }
+    </div>
+  `).join('');
+</script>
+
+</body>
+</html>
